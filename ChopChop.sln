@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChopChop.Entity", "ChopChop.Entity\ChopChop.Entity.csproj", "{0895DDAA-8397-416A-8B33-C430B18F6CB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChopChop.Service", "ChopChop.Service\ChopChop.Service.csproj", "{7426E577-FF3B-4043-B01E-7C3BCBBAF98C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChopChop.Utility", "ChopChop.Utility\ChopChop.Utility.csproj", "{2B773C74-C1C4-495C-AC18-410EAB613788}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChopChop.ViewModel", "ChopChop.ViewModel\ChopChop.ViewModel.csproj", "{4C15F039-49B7-4323-8BBD-AA0AA6DEEA90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChopChop.Web", "ChopChop.Web\ChopChop.Web.csproj", "{A12A937F-5B05-41E7-AC1B-F9D9187E388D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChopChop.Bridg", "ChopChop.Bridg\ChopChop.Bridg.csproj", "{14FD9CBD-A479-4783-92A4-0BF8F4E3E81C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0895DDAA-8397-416A-8B33-C430B18F6CB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0895DDAA-8397-416A-8B33-C430B18F6CB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0895DDAA-8397-416A-8B33-C430B18F6CB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0895DDAA-8397-416A-8B33-C430B18F6CB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7426E577-FF3B-4043-B01E-7C3BCBBAF98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7426E577-FF3B-4043-B01E-7C3BCBBAF98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7426E577-FF3B-4043-B01E-7C3BCBBAF98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7426E577-FF3B-4043-B01E-7C3BCBBAF98C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B773C74-C1C4-495C-AC18-410EAB613788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B773C74-C1C4-495C-AC18-410EAB613788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B773C74-C1C4-495C-AC18-410EAB613788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B773C74-C1C4-495C-AC18-410EAB613788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C15F039-49B7-4323-8BBD-AA0AA6DEEA90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C15F039-49B7-4323-8BBD-AA0AA6DEEA90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C15F039-49B7-4323-8BBD-AA0AA6DEEA90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C15F039-49B7-4323-8BBD-AA0AA6DEEA90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A12A937F-5B05-41E7-AC1B-F9D9187E388D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A12A937F-5B05-41E7-AC1B-F9D9187E388D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A12A937F-5B05-41E7-AC1B-F9D9187E388D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A12A937F-5B05-41E7-AC1B-F9D9187E388D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14FD9CBD-A479-4783-92A4-0BF8F4E3E81C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FD9CBD-A479-4783-92A4-0BF8F4E3E81C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FD9CBD-A479-4783-92A4-0BF8F4E3E81C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FD9CBD-A479-4783-92A4-0BF8F4E3E81C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
