@@ -12,14 +12,23 @@ namespace ChopChop.Entity.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Admin
+    public partial class MasterOrderStatu
     {
-        public int AdminId { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public MasterOrderStatu()
+        {
+            this.Orders = new HashSet<Order>();
+        }
+    
+        public int OrderStatusID { get; set; }
+        public string StatusName { get; set; }
+        public string StatusDescription { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+    
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

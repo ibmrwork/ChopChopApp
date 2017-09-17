@@ -25,6 +25,34 @@ namespace ChopChop.Entity.EntityFramework
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Admin> Admins { get; set; }
+        public DbSet<ChopChopFaq> ChopChopFaqs { get; set; }
+        public DbSet<ChopChopGeneral> ChopChopGenerals { get; set; }
+        public DbSet<DeviceLoginDetail> DeviceLoginDetails { get; set; }
+        public DbSet<MasterFAQ> MasterFAQs { get; set; }
+        public DbSet<MasterLanguage> MasterLanguages { get; set; }
+        public DbSet<MasterOrderStatu> MasterOrderStatus { get; set; }
+        public DbSet<MasterPaymentType> MasterPaymentTypes { get; set; }
+        public DbSet<MasterProcessingState> MasterProcessingStates { get; set; }
+        public DbSet<MasterRefundReason> MasterRefundReasons { get; set; }
+        public DbSet<MasterRestaurentStyle> MasterRestaurentStyles { get; set; }
+        public DbSet<MasterRole> MasterRoles { get; set; }
+        public DbSet<MasterSoldOut> MasterSoldOuts { get; set; }
+        public DbSet<MenuItemModifier> MenuItemModifiers { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderRefund> OrderRefunds { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<RolesPermission> RolesPermissions { get; set; }
+        public DbSet<sysdiagram> sysdiagrams { get; set; }
+        public DbSet<UserAddress> UserAddresses { get; set; }
+        public DbSet<UserFavoriteVendor> UserFavoriteVendors { get; set; }
+        public DbSet<UserPrefrence> UserPrefrences { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserSoldOutPreference> UserSoldOutPreferences { get; set; }
+        public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<VendorCommision> VendorCommisions { get; set; }
+        public DbSet<VendorMedia> VendorMedias { get; set; }
+        public DbSet<VendorMenu> VendorMenus { get; set; }
+        public DbSet<VendorRating> VendorRatings { get; set; }
     }
 }

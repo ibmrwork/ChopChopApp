@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bridg\UserBridg.cs" />
     <Compile Include="IBridg\IAdminBridg.cs" />
+    <Compile Include="IBridg\IUserBridg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Bridg\AdminBridg.cs" />
   </ItemGroup>

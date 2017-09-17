@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IServices\IAdminService.cs" />
+    <Compile Include="IServices\IUserService.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChopChop.Entity\ChopChop.Entity.csproj">

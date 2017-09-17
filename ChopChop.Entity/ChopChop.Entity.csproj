@@ -80,9 +80,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityFramework\Admin.cs">
-      <DependentUpon>ChoChopEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityFramework\ChoChopEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -97,6 +94,93 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ChoChopEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ChopChopFaq.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ChopChopGeneral.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\DeviceLoginDetail.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MasterFAQ.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MasterLanguage.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MasterOrderStatu.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MasterPaymentType.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MasterProcessingState.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MasterRefundReason.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MasterRestaurentStyle.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MasterRole.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MasterSoldOut.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MenuItem.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MenuItemModifier.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Order.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\OrderDetail.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\OrderRefund.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\RolesPermission.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\sysdiagram.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\User.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\UserAddress.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\UserFavoriteVendor.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\UserPrefrence.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\UserSoldOutPreference.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Vendor.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\VendorCommision.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\VendorMedia.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\VendorMenu.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\VendorRating.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs">

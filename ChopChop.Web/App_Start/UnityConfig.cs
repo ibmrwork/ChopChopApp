@@ -27,7 +27,8 @@ namespace ChopChop.Web.App_Start
             //This is the important line to edit  
             container.RegisterType<IAdminBridg, AdminBridg>(new PerThreadLifetimeManager());
             container.RegisterType<IAdminService, AdminService>(new PerThreadLifetimeManager());
-
+            container.RegisterType<IUserBridg, UserBridg>(new PerThreadLifetimeManager());
+            container.RegisterType<IUserService, UserService>(new PerThreadLifetimeManager());
 
             RegisterTypes(container);
             return container;

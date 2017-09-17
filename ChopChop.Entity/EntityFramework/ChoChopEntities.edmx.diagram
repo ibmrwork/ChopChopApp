@@ -5,7 +5,55 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="488a1753a9fa4f41ae799d4866e629bf" Name="Diagram1">
-        <EntityTypeShape EntityType="ChopChopModel.Admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChopChopModel.ChopChopFaq" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ChopChopModel.ChopChopGeneral" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ChopChopModel.DeviceLoginDetail" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ChopChopModel.MasterFAQ" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ChopChopModel.MasterLanguage" Width="1.5" PointX="3.75" PointY="15.625" />
+        <EntityTypeShape EntityType="ChopChopModel.MasterOrderStatu" Width="1.5" PointX="9" PointY="16.875" />
+        <EntityTypeShape EntityType="ChopChopModel.MasterPaymentType" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ChopChopModel.MasterProcessingState" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ChopChopModel.MasterRefundReason" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ChopChopModel.MasterRestaurentStyle" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ChopChopModel.MasterRole" Width="1.5" PointX="4.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ChopChopModel.MasterSoldOut" Width="1.5" PointX="6.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ChopChopModel.MenuItemModifier" Width="1.5" PointX="12.75" PointY="41.5" />
+        <EntityTypeShape EntityType="ChopChopModel.MenuItem" Width="1.5" PointX="10.5" PointY="41.125" />
+        <EntityTypeShape EntityType="ChopChopModel.OrderDetail" Width="1.5" PointX="13.5" PointY="34.75" />
+        <EntityTypeShape EntityType="ChopChopModel.OrderRefund" Width="1.5" PointX="9" PointY="21.125" />
+        <EntityTypeShape EntityType="ChopChopModel.Order" Width="1.5" PointX="11.25" PointY="28" />
+        <EntityTypeShape EntityType="ChopChopModel.RolesPermission" Width="1.5" PointX="6" PointY="49.25" />
+        <EntityTypeShape EntityType="ChopChopModel.sysdiagram" Width="1.5" PointX="8.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ChopChopModel.UserAddress" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ChopChopModel.UserFavoriteVendor" Width="1.5" PointX="8.25" PointY="25.75" />
+        <EntityTypeShape EntityType="ChopChopModel.UserPrefrence" Width="1.5" PointX="6" PointY="21.125" />
+        <EntityTypeShape EntityType="ChopChopModel.User" Width="1.5" PointX="3.75" PointY="19.625" />
+        <EntityTypeShape EntityType="ChopChopModel.UserSoldOutPreference" Width="1.5" PointX="6" PointY="45.625" />
+        <EntityTypeShape EntityType="ChopChopModel.Vendor" Width="1.5" PointX="6" PointY="33.75" />
+        <EntityTypeShape EntityType="ChopChopModel.VendorCommision" Width="1.5" PointX="8.25" PointY="33.625" />
+        <EntityTypeShape EntityType="ChopChopModel.VendorMedia" Width="1.5" PointX="8.25" PointY="37.25" />
+        <EntityTypeShape EntityType="ChopChopModel.VendorMenu" Width="1.5" PointX="8.25" PointY="41.5" />
+        <EntityTypeShape EntityType="ChopChopModel.VendorRating" Width="1.5" PointX="8.25" PointY="29.875" />
+        <AssociationConnector Association="ChopChopModel.FK_UserPrefrence_MasterLanguage" />
+        <AssociationConnector Association="ChopChopModel.FK_Orders_MasterOrderStatus" />
+        <AssociationConnector Association="ChopChopModel.FK_MenuItemModifier_MenuItems" />
+        <AssociationConnector Association="ChopChopModel.FK_MenuItems_VendorMenu" />
+        <AssociationConnector Association="ChopChopModel.FK_OrderDetail_MenuItems" />
+        <AssociationConnector Association="ChopChopModel.FK_OrderDetail_Orders" />
+        <AssociationConnector Association="ChopChopModel.FK_OrderRefunds_Orders" />
+        <AssociationConnector Association="ChopChopModel.FK_OrderRefunds_Users" />
+        <AssociationConnector Association="ChopChopModel.FK_Orders_Users" />
+        <AssociationConnector Association="ChopChopModel.FK_Orders_Vendor" />
+        <AssociationConnector Association="ChopChopModel.FK_RolesPermission_MasterRole" />
+        <AssociationConnector Association="ChopChopModel.FK_UserFavoriteVendor_Users" />
+        <AssociationConnector Association="ChopChopModel.FK_UserFavoriteVendor_Vendor" />
+        <AssociationConnector Association="ChopChopModel.FK_UserPrefrence_Users" />
+        <AssociationConnector Association="ChopChopModel.FK_UserSoldOutPreference_Users" />
+        <AssociationConnector Association="ChopChopModel.FK_Vendor_Users" />
+        <AssociationConnector Association="ChopChopModel.FK_VendorCommision_Vendor" />
+        <AssociationConnector Association="ChopChopModel.FK_VendorMedia_Vendor" />
+        <AssociationConnector Association="ChopChopModel.FK_VendorMenu_Vendor" />
+        <AssociationConnector Association="ChopChopModel.FK_VendorRating_Vendor" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

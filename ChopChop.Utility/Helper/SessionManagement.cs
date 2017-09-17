@@ -67,7 +67,7 @@ namespace ChopChop.Utility
                 var profileData = new UserModel
                 {
                     UserID = value.UserID,
-                    Username = value.Username,
+                    UserName = value.UserName,
                     UserTypeID = value.UserTypeID,
                     
                     EmailID=value.EmailID,
