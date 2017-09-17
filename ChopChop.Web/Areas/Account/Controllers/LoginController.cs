@@ -9,7 +9,7 @@ namespace ChopChop.Web.Areas.Account.Controllers
     public class LoginController : Controller
     {
         // GET: Account/Login
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         }
