@@ -65,7 +65,7 @@ namespace ChopChopApi.App_Start
         {
             int lenthofpass = 6;
             string allowedChars = "";
-            allowedChars += "1,2,3,4,5,6,7,8,9,0,!,@,#,$,%,&,?";
+            allowedChars += "1,2,3,4,5,6,7,8,9,0";
             char[] sep =   {  
                                 ','  
                             };

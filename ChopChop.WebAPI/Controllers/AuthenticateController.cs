@@ -10,6 +10,9 @@ using System.Net.Http;
 using System.Web.Http;
 using ChopChop.Bridg;
 using ChopChop.ViewModel;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace ChopChopApi.Controllers
 {
@@ -24,42 +27,54 @@ namespace ChopChopApi.Controllers
 
         // POST: api/Authenticate
 
-        IUserBridg userBridg; 
-        ServiceResponseModel responseModel= new ServiceResponseModel();
-       
+        IUserBridg userBridg;
+        
+        ServiceResponseModel responseModel = new ServiceResponseModel();
+
         public AuthenticateController()
         {
             this.userBridg = new UserBridg();
         }
 
-       // [APIAuthorizeAttribute]
+        // [APIAuthorizeAttribute]
         [HttpPost]
         public ServiceResponseModel Signup(SignupModel objSignupModel)
         {
             UserModel viewModel = new UserModel
             {
-                //PhoneNumber = objSignupModel.MobileNumber,
-                //CreatedDate = DateTime.Now,
-                //ModifiedDate = DateTime.Now,
-                //Password = objSignupModel.Password,
+                PhoneNumber = objSignupModel.MobileNumber,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                Password = objSignupModel.Password,
             };
-            int userId=userBridg.InsertUser(viewModel);
-            if (userId > 0)
+            var userDetail = userBridg.InsertUser(viewModel);
+
+            var newToken = KeyGenerator.GenerateToken(userDetail);
+
+
+
+            if (userBridg.UpdateDeviceDetailToken(userDetail.UserID, newToken))
             {
                 responseModel.lsSuccess = true;
-                responseModel.Message = "User Registered Successfully";
-                
+                responseModel.Message = "200";
+                responseModel.userid = Convert.ToString(userDetail.UserID);
+                responseModel.authToken = newToken;
+            }
+            else
+            {
+                responseModel.lsSuccess = false;
+                responseModel.Message = "100";
             }
             return responseModel;
         }
 
-        
+
 
         [System.Web.Http.AcceptVerbs("GET")]
         [System.Web.Http.HttpGet]
-        public ServiceResponseModel Login(string userName,string password)
+        public ServiceResponseModel Login(string userName, string password)
         {
-            var validUser= userBridg.GetUserByUserNamePassword(userName, password);
+            var validUser = userBridg.GetUserByUserNamePassword(userName, password);
             if (validUser != null && validUser.UserName.ToLower() == userName.ToLower())
             {
                 var newToken = KeyGenerator.GenerateToken(validUser);
@@ -76,8 +91,33 @@ namespace ChopChopApi.Controllers
         public ServiceResponseModel RequestOTP(string Mobilenumber)
         {
 
-                var newOTP = KeyGenerator.generateOTP();
-                return new ServiceResponseModel() { Message = newOTP };
+            var newOTP = KeyGenerator.generateOTP();
+
+
+            var accountSid = "ACd1fbc9165a5a2ad6df57e01a9708b73b";
+            // Your Auth Token from twilio.com/console
+            var authToken = "f36bf5c18f293acd5bae1ff1f34d512b";
+
+            TwilioClient.Init(accountSid, authToken);
+
+            var message = MessageResource.Create(
+                to: new PhoneNumber("+919988023460"),
+                from: new PhoneNumber("+13219855413"),
+                body: newOTP);
+
+            userBridg.InsertOTP(Mobilenumber, newOTP);
+
+            return new ServiceResponseModel() { lsSuccess=true };
+        }
+
+        [System.Web.Http.AcceptVerbs("GET")]
+        [System.Web.Http.HttpGet]
+        public ServiceResponseModel VerifyOTP(string Mobilenumber, string OTP)
+        {
+            bool isVerified = false;
+            isVerified=userBridg.VerifyOTP(Mobilenumber, OTP);
+
+            return new ServiceResponseModel() { lsSuccess = isVerified };
         }
     }
 }

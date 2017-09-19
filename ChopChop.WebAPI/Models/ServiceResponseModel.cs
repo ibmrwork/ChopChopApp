@@ -11,5 +11,7 @@ namespace ChopChopApi.Models
         public bool lsSuccess { get; set; }
         public object ErrorCode { get; set; }
         public object ResponseData { get; set; }
+        public string userid { get; set; }
+        public string authToken { get; set; }
     }
 }

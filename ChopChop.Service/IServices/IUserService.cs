@@ -13,6 +13,13 @@ namespace ChopChop.Service
         bool InsertUser(User entity);
         User Login(User entity);
         User GetUser(int userId);
+        DeviceLoginDetail GetDeviceDetail(int userId);
         User GetUserByUserNamePassword(string userName, string password);
+        bool InsertOTP(string mobile, string OTP);
+        bool VerifyOTP(string mobile, string OTP);
+
+        bool InsertDeviceDetail(DeviceLoginDetail devicedetails);
+
+        bool UpdateDeviceDetailToken(int userID, string token);
     }
 }

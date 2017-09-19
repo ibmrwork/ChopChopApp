@@ -149,6 +149,9 @@
     <Compile Include="EntityFramework\RolesPermission.cs">
       <DependentUpon>ChoChopEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\SignUpOTP.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\sysdiagram.cs">
       <DependentUpon>ChoChopEntities.tt</DependentUpon>
     </Compile>

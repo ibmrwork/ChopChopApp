@@ -11,9 +11,16 @@ namespace ChopChop.Bridg
 {
     public interface IUserBridg
     {
-        int InsertUser(UserModel model);
+        UserModel InsertUser(UserModel model);
         User GetUser(int userId);
         UserModel GetUserByUserNamePassword(string userName, string password);
 
+        bool InsertOTP(string mobile, string OTP);
+
+        bool VerifyOTP(string mobile, string OTP);
+
+        //int UpdateUserToken(int userID, string token);
+
+        bool UpdateDeviceDetailToken(int userID, string token);
     }
 }

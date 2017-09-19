@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ChopChop.Entity.EntityFramework;
 using ChopChop.Service;
 using ChopChop.ViewModel;
+using ChopChop.Utility;
+using static ChopChop.Utility.Enums;
 
 namespace ChopChop.Bridg
 {
@@ -27,37 +29,66 @@ namespace ChopChop.Bridg
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public int InsertUser(UserModel model)
+        public UserModel InsertUser(UserModel model)
         {
             try
             {
+                var encryptedPassword = HelperClass.base64Encode(model.Password);
                 User entity = new User
                 {
-                    //CreatedDate = model.CreatedDate,
-                    //EmailAddress = model.EmailAddress,
+                    CreatedDate = model.CreatedDate,
+                    EmailAddress = model.EmailAddress,
                     //AccessToken = model.AccessToken,
                     //AccessLevel = model.AccessLevel,
-                    //FirstName = model.FirstName,
-                    //IsActive = model.IsActive,
-                    //IsDeleted = model.IsDeleted,
-                    //LastName = model.LastName,
-                    //ModifiedDate = model.ModifiedDate,
-                    //ModifiedBy = model.ModifiedBy,
-                    //Password = model.Password,
-                    //PhoneNumber = model.PhoneNumber,
-                    //ProfileImagePath = model.ProfileImagePath,
-                    //RoleID = model.RoleID,
-                    //TimeZone = model.TimeZone,
-                    //UserName = model.UserName,
+                    FirstName = model.FirstName,
+                    IsActive = true,
+                    IsDeleted = false,
+                    LastName = model.LastName,
+                    ModifiedDate = model.ModifiedDate,
+                    ModifiedBy = 1,
+                    Password = encryptedPassword,
+                    PhoneNumber = model.PhoneNumber,
+                    RoleID = (int)UserTypes.Customer
 
                 };
 
                 _userService.InsertUser(entity);
-                return 1;
+
+                DeviceLoginDetail objDeviceDetail = new DeviceLoginDetail
+                {
+                    UserId=entity.UserID,
+                    CreatedDate = model.CreatedDate,
+                    IsActive = true,
+                    IsDeleted = false,
+                    ModifiedDate = model.ModifiedDate,
+                    ModifiedBy = 1,
+                    DeviceType=Convert.ToString(model.deviceType),
+                    AppVersion=Convert.ToString(model.AppVersion),
+                    OSVersion=Convert.ToString(model.OSVersion)
+
+                };
+
+                _userService.InsertDeviceDetail(objDeviceDetail);
+
+                return model;
             }
             catch (Exception ex)
             {
-                return 0;
+                return null;
+            }
+
+        }
+
+
+        public bool UpdateDeviceDetailToken(int userID, string token)
+        {
+            try
+            {
+                return _userService.UpdateDeviceDetailToken(userID, token);
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
 
         }
@@ -98,6 +129,18 @@ namespace ChopChop.Bridg
             objUserModel.UserID = user.UserID;
             objUserModel.UserName = user.UserName;
             return objUserModel;
+        }
+
+        public bool InsertOTP(string mobile, string OTP)
+        {
+            
+            return _userService.InsertOTP(mobile, OTP);
+        }
+
+        public bool VerifyOTP(string mobile, string OTP)
+        {
+
+            return _userService.VerifyOTP(mobile, OTP);
         }
     }
 }

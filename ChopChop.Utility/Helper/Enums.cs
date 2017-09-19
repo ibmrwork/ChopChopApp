@@ -20,8 +20,9 @@ namespace ChopChop.Utility
         public enum UserTypes : int
         {
             Admin = 1,
-            Distributor = 2,
-            Supplier = 3
+            Vendor = 2,
+            SubVendor = 3,
+            Customer=4
         }
 
         public enum JobStatus : int

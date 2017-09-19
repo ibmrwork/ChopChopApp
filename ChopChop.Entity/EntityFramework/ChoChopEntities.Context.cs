@@ -54,5 +54,6 @@ namespace ChopChop.Entity.EntityFramework
         public DbSet<VendorMedia> VendorMedias { get; set; }
         public DbSet<VendorMenu> VendorMenus { get; set; }
         public DbSet<VendorRating> VendorRatings { get; set; }
+        public DbSet<SignUpOTP> SignUpOTPs { get; set; }
     }
 }
