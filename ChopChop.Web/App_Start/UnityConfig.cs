@@ -9,6 +9,7 @@ using ChopChop.Service.IServices;
 using ChopChop.Service;
 using ChopChop.IBridg;
 using ChopChop.Bridg;
+using ChopChop.Bridg.IBridg;
 namespace ChopChop.Web.App_Start
 {
     public class UnityConfig
@@ -29,7 +30,8 @@ namespace ChopChop.Web.App_Start
             container.RegisterType<IAdminService, AdminService>(new PerThreadLifetimeManager());
             container.RegisterType<IUserBridg, UserBridg>(new PerThreadLifetimeManager());
             container.RegisterType<IUserService, UserService>(new PerThreadLifetimeManager());
-
+            container.RegisterType<IVendorService, IVendorService>(new PerThreadLifetimeManager());
+            container.RegisterType<IVendorBridg, VendorBridg>(new PerThreadLifetimeManager());
             RegisterTypes(container);
             return container;
         }

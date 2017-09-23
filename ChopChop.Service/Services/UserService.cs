@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ChopChop.Entity.Repository;
 using ChopChop.Entity.EntityFramework;
+using ChopChop.ViewModel;
+
 
 namespace ChopChop.Service
 {
@@ -53,9 +55,37 @@ namespace ChopChop.Service
             return repoUserDeviceLoginDetail.GetAll().FirstOrDefault(x => x.UserId == userId);
         }
 
-        public User GetUserByUserNamePassword(string userName,string password)
+        public User GetUserByUserNamePassword(string userName, string password)
         {
             return repoUser.GetAll().Where(x => x.UserName == userName && x.Password == password).FirstOrDefault();
+            //return repoUser.GetAll().FirstOrDefault(x => x.UserName == userName && x.Password == password && x.IsActive == true);
+        }
+
+        public UserDetailModel GetUserByUserNamePassword(string userName, string password, string deviceId)
+        {
+            //replace with stored procedures
+            ChopChopEntities db = new ChopChopEntities();
+            var result = db.sp_UserLogin(userName, password, deviceId);
+            if (result != null)
+            {
+                return result.Select(x => new UserDetailModel
+                {
+
+                    Email = x.EmailAddress,
+                    FullName = x.FirstName + " " + x.LastName,
+                    MobileNumber = x.PhoneNumber,
+                    ProfilePic = x.ProfileImagePath,
+                    UserName = x.UserName,
+                    UserId = x.UserID,
+                    SoldOptions = new List<SoldOptions>(),
+                    UserAddress = new List<AddressModel>(),
+                    LanguagePreference = "",
+                    UserPreference = 1
+                }).FirstOrDefault();
+            }
+            else
+                return null;
+            //return repoUser.GetAll().Where(x => x.UserName == userName && x.Password == password).FirstOrDefault();
             //return repoUser.GetAll().FirstOrDefault(x => x.UserName == userName && x.Password == password && x.IsActive == true);
         }
 
@@ -142,5 +172,21 @@ namespace ChopChop.Service
 
             return isUpdated;
         }
+
+        public int UpdateAccessToken(int userId, string accessToken)
+        {
+            try
+            {
+                var userEntity = repoUser.GetAll().Where(x => x.UserID == userId).FirstOrDefault();
+                userEntity.AccessToken = accessToken;
+                repoUser.Edit(userEntity);
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
     }
 }

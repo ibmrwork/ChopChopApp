@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ChopChop.Entity.EntityFramework;
 using ChopChop.Entity.Repository;
+using ChopChop.ViewModel;
 
 namespace ChopChop.Service
 {
@@ -21,5 +22,7 @@ namespace ChopChop.Service
         bool InsertDeviceDetail(DeviceLoginDetail devicedetails);
 
         bool UpdateDeviceDetailToken(int userID, string token);
+        UserDetailModel GetUserByUserNamePassword(string userName, string password, string deviceId);
+        int UpdateAccessToken(int userId, string accessToken);
     }
 }

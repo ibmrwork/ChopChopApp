@@ -40,9 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bridg\SoldOutBridg.cs" />
     <Compile Include="Bridg\UserBridg.cs" />
+    <Compile Include="Bridg\VendorBridg.cs" />
     <Compile Include="IBridg\IAdminBridg.cs" />
+    <Compile Include="IBridg\ISoldOutBridg.cs" />
     <Compile Include="IBridg\IUserBridg.cs" />
+    <Compile Include="IBridg\IVendorBridg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Bridg\AdminBridg.cs" />
   </ItemGroup>

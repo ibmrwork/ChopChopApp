@@ -61,6 +61,31 @@ namespace ChopChopApi.App_Start
             }
         }
 
+        public static string GenerateToken(UserDetailModel objUserModel, string deviceId)
+        {
+            try
+            {
+                string randomnumber =
+                   string.Join(":", new string[]
+                   {   Convert.ToString(objUserModel.UserId),
+                KeyGenerator.GetUniqueKey(),
+                Convert.ToString(objUserModel.UserName),
+                KeyGenerator.GetUniqueKey(),
+                Convert.ToString(deviceId),
+                KeyGenerator.GetUniqueKey()
+                //Convert.ToString(ClientKeys.CompanyID),
+                //Convert.ToString(IssuedOn.Ticks),
+                //ClientKeys.ClientID
+                   });
+
+                return EncryptionLibrary.EncryptText(randomnumber);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public static string generateOTP()
         {
             int lenthofpass = 6;

@@ -16,6 +16,7 @@ namespace ChopChop.Entity.EntityFramework
     {
         public User()
         {
+            this.DeviceLoginDetails = new HashSet<DeviceLoginDetail>();
             this.OrderRefunds = new HashSet<OrderRefund>();
             this.Orders = new HashSet<Order>();
             this.RolesPermissions = new HashSet<RolesPermission>();
@@ -48,6 +49,7 @@ namespace ChopChop.Entity.EntityFramework
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        public virtual ICollection<DeviceLoginDetail> DeviceLoginDetails { get; set; }
         public virtual ICollection<OrderRefund> OrderRefunds { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<RolesPermission> RolesPermissions { get; set; }

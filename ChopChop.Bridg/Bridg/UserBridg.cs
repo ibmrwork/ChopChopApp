@@ -7,7 +7,7 @@ using ChopChop.Entity.EntityFramework;
 using ChopChop.Service;
 using ChopChop.ViewModel;
 using ChopChop.Utility;
-using static ChopChop.Utility.Enums;
+using ChopChop.Bridg.IBridg;
 
 namespace ChopChop.Bridg
 {
@@ -48,7 +48,7 @@ namespace ChopChop.Bridg
                     ModifiedBy = 1,
                     Password = encryptedPassword,
                     PhoneNumber = model.PhoneNumber,
-                    RoleID = (int)UserTypes.Customer
+                    RoleID = (int)ChopChop.Utility.Enums.UserTypes.Customer
 
                 };
 
@@ -131,6 +131,12 @@ namespace ChopChop.Bridg
             return objUserModel;
         }
 
+        public UserDetailModel GetUserByUserNamePassword(string userName, string password, string deviceId)
+        {
+            return _userService.GetUserByUserNamePassword(userName, password, deviceId);
+
+        }
+
         public bool InsertOTP(string mobile, string OTP)
         {
             
@@ -141,6 +147,12 @@ namespace ChopChop.Bridg
         {
 
             return _userService.VerifyOTP(mobile, OTP);
+        }
+
+        public int UpdateAccessToken(int userId, string accessToken)
+        {
+            return _userService.UpdateAccessToken(userId, accessToken);
+
         }
     }
 }

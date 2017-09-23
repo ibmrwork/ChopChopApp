@@ -173,7 +173,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="Twilio">
-      <HintPath>..\ChopChop.Web\bin\Twilio.dll</HintPath>
+      <HintPath>..\packages\Twilio.5.6.5\lib\net451\Twilio.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -216,6 +216,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\ChopChopWebAPI.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -245,6 +246,10 @@
     <ProjectReference Include="..\ChopChop.Entity\ChopChop.Entity.csproj">
       <Project>{0895ddaa-8397-416a-8b33-c430b18f6cb0}</Project>
       <Name>ChopChop.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChopChop.Utility\ChopChop.Utility.csproj">
+      <Project>{2b773c74-c1c4-495c-ac18-410eab613788}</Project>
+      <Name>ChopChop.Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChopChop.ViewModel\ChopChop.ViewModel.csproj">
       <Project>{4c15f039-49b7-4323-8bbd-aa0aa6deea90}</Project>

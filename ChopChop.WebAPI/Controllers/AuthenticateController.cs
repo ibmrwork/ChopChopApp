@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web.Http;
 using ChopChop.Bridg;
 using ChopChop.ViewModel;
+using ChopChop.Bridg.IBridg;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
@@ -51,8 +52,6 @@ namespace ChopChopApi.Controllers
 
             var newToken = KeyGenerator.GenerateToken(userDetail);
 
-
-
             if (userBridg.UpdateDeviceDetailToken(userDetail.UserID, newToken))
             {
                 responseModel.lsSuccess = true;
@@ -70,21 +69,21 @@ namespace ChopChopApi.Controllers
 
 
 
-        [System.Web.Http.AcceptVerbs("GET")]
-        [System.Web.Http.HttpGet]
-        public ServiceResponseModel Login(string userName, string password)
-        {
-            var validUser = userBridg.GetUserByUserNamePassword(userName, password);
-            if (validUser != null && validUser.UserName.ToLower() == userName.ToLower())
-            {
-                var newToken = KeyGenerator.GenerateToken(validUser);
-                return new ServiceResponseModel() { Message = newToken };
-            }
-            else
-            {
-                return new ServiceResponseModel() { Message = "Invalid username or password" };
-            }
-        }
+        //[System.Web.Http.AcceptVerbs("GET")]
+        //[System.Web.Http.HttpGet]
+        //public ServiceResponseModel Login(string userName, string password)
+        //{
+        //    var validUser = userBridg.GetUserByUserNamePassword(userName, password);
+        //    if (validUser != null && validUser.UserName.ToLower() == userName.ToLower())
+        //    {
+        //        var newToken = KeyGenerator.GenerateToken(validUser);
+        //        return new ServiceResponseModel() { Message = newToken };
+        //    }
+        //    else
+        //    {
+        //        return new ServiceResponseModel() { Message = "Invalid username or password" };
+        //    }
+        //}
 
         [System.Web.Http.AcceptVerbs("GET")]
         [System.Web.Http.HttpGet]
@@ -101,7 +100,7 @@ namespace ChopChopApi.Controllers
             TwilioClient.Init(accountSid, authToken);
 
             var message = MessageResource.Create(
-                to: new PhoneNumber("+919988023460"),
+                to: new PhoneNumber(Mobilenumber    ),
                 from: new PhoneNumber("+13219855413"),
                 body: newOTP);
 

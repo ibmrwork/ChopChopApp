@@ -35,5 +35,46 @@ namespace ChopChop.ViewModel
 
     }
 
-    
+    public class LoginResponseModel
+    {
+        public string AccessToken { get; set; }
+        public UserDetailModel UserDetailModel { get; set; }
+
+    }
+    public class UserDetailModel
+    {
+        public string FullName { get; set; }
+        public int UserId { get; set; }
+        public string MobileNumber { get; set; }
+        public string Email { get; set; }
+        public string ProfilePic { get; set; }
+        public List<AddressModel> UserAddress { get; set; }
+        public int UserPreference { get; set; }
+        public string LanguagePreference { get; set; }
+        public List<SoldOptions> SoldOptions { get; set; }
+        public string UserName { get; set; }
+
+    }
+    public class AddressModel
+    {
+        public string City { get; set; }
+        public string AddressDetail { get; set; }
+    }
+    public class SoldOptions
+    {
+        public int SoldId { get; set; }
+        public string Title { get; set; }
+    }
+
+    public class UserSoldOptionPref
+    {
+        public int UserID { get; set; }
+        public int? SoldOutItemType { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public int ModifiedBy { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+    }
 }

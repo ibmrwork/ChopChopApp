@@ -27,5 +27,7 @@ namespace ChopChop.Entity.EntityFramework
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<bool> IsActive { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

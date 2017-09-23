@@ -273,16 +273,6 @@
           <Property Name="OTP" Type="varchar" MaxLength="10" />
           <Property Name="IsVerified" Type="bit" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="UserAddresses">
           <Key>
             <PropertyRef Name="UserAddressID" />
@@ -458,6 +448,18 @@
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
+        <Association Name="FK_DeviceLoginDetails_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="DeviceLoginDetails" Type="Self.DeviceLoginDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="DeviceLoginDetails">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MenuItemModifier_MenuItems">
           <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="0..1" />
           <End Role="MenuItemModifier" Type="Self.MenuItemModifier" Multiplicity="*" />
@@ -698,6 +700,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="deviceId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SSP_GetRestaurantList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Lat" Type="decimal" Mode="In" />
+          <Parameter Name="Long" Type="decimal" Mode="In" />
+          <Parameter Name="SortOptionId" Type="int" Mode="In" />
+          <Parameter Name="StartIndex" Type="int" Mode="In" />
+          <Parameter Name="EndIndex" Type="int" Mode="In" />
+          <Parameter Name="LanguageId" Type="int" Mode="In" />
+          <Parameter Name="SearchText" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <EntityContainer Name="ChopChopModelStoreContainer">
           <EntitySet Name="ChopChopFaq" EntityType="Self.ChopChopFaq" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChopChopGeneral" EntityType="Self.ChopChopGeneral" Schema="dbo" store:Type="Tables" />
@@ -718,7 +734,6 @@
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolesPermission" EntityType="Self.RolesPermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SignUpOTP" EntityType="Self.SignUpOTP" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAddresses" EntityType="Self.UserAddresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserFavoriteVendor" EntityType="Self.UserFavoriteVendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPrefrence" EntityType="Self.UserPrefrence" Schema="dbo" store:Type="Tables" />
@@ -729,6 +744,10 @@
           <EntitySet Name="VendorMedia" EntityType="Self.VendorMedia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendorMenu" EntityType="Self.VendorMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendorRating" EntityType="Self.VendorRating" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DeviceLoginDetails_User" Association="Self.FK_DeviceLoginDetails_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DeviceLoginDetails" EntitySet="DeviceLoginDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_MenuItemModifier_MenuItems" Association="Self.FK_MenuItemModifier_MenuItems">
             <End Role="MenuItems" EntitySet="MenuItems" />
             <End Role="MenuItemModifier" EntitySet="MenuItemModifier" />
@@ -815,6 +834,11 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ChopChopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ChopChopEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_UserLogin" ReturnType="Collection(ChopChopModel.sp_UserLogin_Result)">
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="deviceId" Mode="In" Type="String" />
+          </FunctionImport>
           <EntitySet Name="ChopChopFaqs" EntityType="ChopChopModel.ChopChopFaq" />
           <EntitySet Name="ChopChopGenerals" EntityType="ChopChopModel.ChopChopGeneral" />
           <EntitySet Name="DeviceLoginDetails" EntityType="ChopChopModel.DeviceLoginDetail" />
@@ -833,7 +857,7 @@
           <EntitySet Name="OrderRefunds" EntityType="ChopChopModel.OrderRefund" />
           <EntitySet Name="Orders" EntityType="ChopChopModel.Order" />
           <EntitySet Name="RolesPermissions" EntityType="ChopChopModel.RolesPermission" />
-          <EntitySet Name="sysdiagrams" EntityType="ChopChopModel.sysdiagram" />
+          <EntitySet Name="SignUpOTPs" EntityType="ChopChopModel.SignUpOTP" />
           <EntitySet Name="UserAddresses" EntityType="ChopChopModel.UserAddress" />
           <EntitySet Name="UserFavoriteVendors" EntityType="ChopChopModel.UserFavoriteVendor" />
           <EntitySet Name="UserPrefrences" EntityType="ChopChopModel.UserPrefrence" />
@@ -844,6 +868,10 @@
           <EntitySet Name="VendorMedias" EntityType="ChopChopModel.VendorMedia" />
           <EntitySet Name="VendorMenus" EntityType="ChopChopModel.VendorMenu" />
           <EntitySet Name="VendorRatings" EntityType="ChopChopModel.VendorRating" />
+          <AssociationSet Name="FK_DeviceLoginDetails_User" Association="ChopChopModel.FK_DeviceLoginDetails_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="DeviceLoginDetail" EntitySet="DeviceLoginDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserPrefrence_MasterLanguage" Association="ChopChopModel.FK_UserPrefrence_MasterLanguage">
             <End Role="MasterLanguage" EntitySet="MasterLanguages" />
             <End Role="UserPrefrence" EntitySet="UserPrefrences" />
@@ -924,8 +952,26 @@
             <End Role="Vendor" EntitySet="Vendors" />
             <End Role="VendorRating" EntitySet="VendorRatings" />
           </AssociationSet>
-          <EntitySet Name="SignUpOTPs" EntityType="ChopChopModel.SignUpOTP" />
+          <FunctionImport Name="SSP_GetRestaurantList">
+            <Parameter Name="Lat" Mode="In" Type="Decimal" />
+            <Parameter Name="Long" Mode="In" Type="Decimal" />
+            <Parameter Name="SortOptionId" Mode="In" Type="Int32" />
+            <Parameter Name="StartIndex" Mode="In" Type="Int32" />
+            <Parameter Name="EndIndex" Mode="In" Type="Int32" />
+            <Parameter Name="LanguageId" Mode="In" Type="Int32" />
+            <Parameter Name="SearchText" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="sp_UserLogin_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ProfileImagePath" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AccessToken" Nullable="true" MaxLength="50" />
+        </ComplexType>
         <EntityType Name="ChopChopFaq">
           <Key>
             <PropertyRef Name="FAQID" />
@@ -969,6 +1015,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="ChopChopModel.FK_DeviceLoginDetails_User" FromRole="DeviceLoginDetail" ToRole="User" />
         </EntityType>
         <EntityType Name="MasterFAQ">
           <Key>
@@ -1201,15 +1248,14 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="User" Relationship="ChopChopModel.FK_RolesPermission_MasterRole" FromRole="RolesPermission" ToRole="User" />
         </EntityType>
-        <EntityType Name="sysdiagram">
+        <EntityType Name="SignUpOTP">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OTP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IsVerified" Type="Boolean" />
         </EntityType>
         <EntityType Name="UserAddress">
           <Key>
@@ -1289,6 +1335,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="DeviceLoginDetails" Relationship="ChopChopModel.FK_DeviceLoginDetails_User" FromRole="User" ToRole="DeviceLoginDetail" />
           <NavigationProperty Name="OrderRefunds" Relationship="ChopChopModel.FK_OrderRefunds_Users" FromRole="User" ToRole="OrderRefund" />
           <NavigationProperty Name="Orders" Relationship="ChopChopModel.FK_Orders_Users" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="RolesPermissions" Relationship="ChopChopModel.FK_RolesPermission_MasterRole" FromRole="User" ToRole="RolesPermission" />
@@ -1410,6 +1457,18 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Vendor" Relationship="ChopChopModel.FK_VendorRating_Vendor" FromRole="VendorRating" ToRole="Vendor" />
         </EntityType>
+        <Association Name="FK_DeviceLoginDetails_User">
+          <End Type="ChopChopModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ChopChopModel.DeviceLoginDetail" Role="DeviceLoginDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="DeviceLoginDetail">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserPrefrence_MasterLanguage">
           <End Type="ChopChopModel.MasterLanguage" Role="MasterLanguage" Multiplicity="0..1" />
           <End Type="ChopChopModel.UserPrefrence" Role="UserPrefrence" Multiplicity="*" />
@@ -1650,22 +1709,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="SignUpOTP">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="OTP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="IsVerified" Type="Boolean" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ChopChopModelStoreContainer" CdmEntityContainer="ChopChopEntities">
-        <EntitySetMapping Name="ChopChopFaqs">
+          <FunctionImportMapping FunctionImportName="sp_UserLogin" FunctionName="ChopChopModel.Store.sp_UserLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ChopChopModel.sp_UserLogin_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ProfileImagePath" ColumnName="ProfileImagePath" />
+                <ScalarProperty Name="AccessToken" ColumnName="AccessToken" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ChopChopFaqs">
             <EntityTypeMapping TypeName="ChopChopModel.ChopChopFaq">
               <MappingFragment StoreEntitySet="ChopChopFaq">
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -1942,14 +2006,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ChopChopModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+          <EntitySetMapping Name="SignUpOTPs">
+            <EntityTypeMapping TypeName="ChopChopModel.SignUpOTP">
+              <MappingFragment StoreEntitySet="SignUpOTP">
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2138,16 +2201,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SignUpOTPs">
-            <EntityTypeMapping TypeName="ChopChopModel.SignUpOTP">
-              <MappingFragment StoreEntitySet="SignUpOTP">
-                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
-                <ScalarProperty Name="OTP" ColumnName="OTP" />
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SSP_GetRestaurantList" FunctionName="ChopChopModel.Store.SSP_GetRestaurantList" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

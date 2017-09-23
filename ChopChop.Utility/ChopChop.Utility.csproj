@@ -60,6 +60,7 @@
     <Compile Include="Helper\MyMembershipProvider.cs" />
     <Compile Include="Helper\PagedData.cs" />
     <Compile Include="Helper\SessionManagement.cs" />
+    <Compile Include="Helper\SqlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

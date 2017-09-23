@@ -152,7 +152,7 @@
     <Compile Include="EntityFramework\SignUpOTP.cs">
       <DependentUpon>ChoChopEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\sysdiagram.cs">
+    <Compile Include="EntityFramework\sp_UserLogin_Result.cs">
       <DependentUpon>ChoChopEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\User.cs">
