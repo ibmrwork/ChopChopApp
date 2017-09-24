@@ -3,18 +3,79 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
+@model ChopChop.ViewModel.UserViewModel
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
-</head>
-<body>
-    <div> 
+ @Styles.Render("~/Content/c1")
+<link href="~/Content/ApplicationCss/login.css" rel="stylesheet" />
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
 
-        Login
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4" style="margin-top:60px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-lock"></span> Login
+                        <span style="float:right">@Html.ActionLink("Forgot Password", "ForgotPassword", "User")</span>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">
+                                    UserName
+                                </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.UserName,  new { @class = "form-control", id = "txtUserName"  })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">
+                                    Password
+                                </label>
+                                <div class="col-sm-9" style="margin-top:5px;">
+                                    @Html.PasswordFor(model => model.Password,  new { @class = "form-control", id = "txtPassword"  })
+
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" />
+                                            Remember me
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group last">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="button" id="btnLogIn" class="btn btn-success btn-sm">
+                                        LogIn
+                                    </button>
+                                    <button type="reset" class="btn btn-default btn-sm">
+                                        Reset
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                        Not Registered ? @Html.ActionLink("Register Here", "", "")
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
 
+}
+
+@Scripts.Render("~/bundles/b1")
+<script src="~/Scripts/Admin/login.js"></script>
+    

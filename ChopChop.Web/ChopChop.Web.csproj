@@ -208,6 +208,7 @@
     <Compile Include="Areas\Account\Controllers\LoginController.cs" />
     <Compile Include="Areas\Account\Controllers\RegisterController.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Areas\Vendor\Controllers\HomeController.cs" />
@@ -224,24 +225,37 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\bg.jpg" />
+    <Content Include="images\downarw.png" />
+    <Content Include="images\icon1.png" />
+    <Content Include="images\icon2.png" />
+    <Content Include="images\icon3.png" />
+    <Content Include="images\icon4.png" />
+    <Content Include="images\icon5.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\shadow.png" />
+    <Content Include="images\uparw.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\User\Views\web.config" />
     <Content Include="Areas\Vendor\Views\web.config" />
     <Content Include="Areas\Account\Views\web.config" />
-    <Content Include="Areas\Account\Views\Login\Login.cshtml" />
-    <Content Include="Areas\Account\Views\Register\Register.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Home.cshtml" />
     <Content Include="Areas\Vendor\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Vendor\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Vendor\Views\Home\Home.cshtml" />
+    <Content Include="Areas\Account\Views\Login\Login.cshtml" />
+    <Content Include="Areas\Account\Views\Register\Register.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -285,7 +299,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Account\Models\" />
-    <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\User\Controllers\" />
     <Folder Include="Areas\User\Models\" />
@@ -314,6 +327,10 @@
     <ProjectReference Include="..\ChopChop.Service\ChopChop.Service.csproj">
       <Project>{7426e577-ff3b-4043-b01e-7c3bcbbaf98c}</Project>
       <Name>ChopChop.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChopChop.Utility\ChopChop.Utility.csproj">
+      <Project>{2b773c74-c1c4-495c-ac18-410eab613788}</Project>
+      <Name>ChopChop.Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChopChop.ViewModel\ChopChop.ViewModel.csproj">
       <Project>{4c15f039-49b7-4323-8bbd-aa0aa6deea90}</Project>

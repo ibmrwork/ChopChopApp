@@ -32,6 +32,10 @@ namespace ChopChop.ViewModel
         public int langID { get; set; }
         public int OTPCode { get; set; }
 
+        public Nullable<int> RoleID { get; set; }
+
+        public Nullable<bool> IsActive { get; set; }
+
 
     }
 

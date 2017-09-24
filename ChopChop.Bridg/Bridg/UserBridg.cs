@@ -124,11 +124,26 @@ namespace ChopChop.Bridg
 
         public UserModel GetUserByUserNamePassword(string userName, string password)
         {
-            UserModel objUserModel = new UserModel();
-            var user = _userService.GetUserByUserNamePassword(userName, password);
-            objUserModel.UserID = user.UserID;
-            objUserModel.UserName = user.UserName;
-            return objUserModel;
+            try
+            {
+                UserModel objUserModel = new UserModel();
+                var user = _userService.GetUserByUserNamePassword(userName, password);
+                if (user != null)
+                {
+                    objUserModel.UserID = user.UserID;
+                    objUserModel.UserName = user.UserName;
+                    objUserModel.RoleID = user.RoleID;
+                    objUserModel.IsActive = user.IsActive;
+                    return objUserModel;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e) {
+                throw e;
+            }
         }
 
         public UserDetailModel GetUserByUserNamePassword(string userName, string password, string deviceId)
