@@ -1,0 +1,35 @@
+﻿
+@{ 
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, Initial-scale=1.0">
+    <title>Admin</title>
+
+    <link href="~/Content/styles/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <a href="#" title="CHOP CHOP" class="logo"><img src="~/Content/images/logo.png" alt="CHOP CHOP"></a>
+            <div class="logout">@HttpContext.Current.Session["UserName"].ToString() / <a href="@Url.Action("Logout","Login",new {area="Account"})" id="Logout"  title="log out">log out</a></div>
+        </header>
+        <section class="icon_container">
+            <div class="icon_container-in"><a href="@Url.Action("VendorList","Vendor",new { area="Vendor" })" class="icon1" title="Vendors"><span></span>Vendors</a></div>
+            <div class="icon_container-in"><a href="@Url.Action("FinancialView","Financial",new {area="Vendor" })" class="icon2" title="Financial"><span></span>Financial</a></div>
+            <div class="icon_container-in"><a href="#" class="icon3" title="Refund Requests"><span></span>Refund Requests</a></div>
+            <div class="icon_container-in"><a href="#" class="icon4" title="Dada"><span></span>Dada</a></div>
+            <div class="icon_container-in"><a href="#" class="icon5" title="Add/Delete Users"><span></span>Add/Delete Users</a></div>
+        </section>
+    </div>
+
+
+</body>
+
+    

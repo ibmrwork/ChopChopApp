@@ -19,7 +19,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <span class="glyphicon glyphicon-lock"></span> Login
-                        <span style="float:right">@Html.ActionLink("Forgot Password", "ForgotPassword", "User")</span>
+                        @*<span style="float:right">@Html.ActionLink("Forgot Password", "ForgotPassword", "User")</span>*@
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form">
@@ -66,10 +66,13 @@
                             </div>
                         </form>
                     </div>
-                    <div class="panel-footer">
+                    @*<div class="panel-footer">
                         Not Registered ? @Html.ActionLink("Register Here", "", "")
-                    </div>
+                    </div>*@
                 </div>
+
+                <div id='loader' style="display:none"><img src="images/loading_spinner.gif" /></div>
+
             </div>
         </div>
     </div>

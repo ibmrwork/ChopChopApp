@@ -20,12 +20,23 @@ namespace ChopChop.Web
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.js"));
+            
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/b1").Include(
+                        "~/Scripts/jquery*",
+                        "~/Scripts/respond.js",
+                        "~/Scripts/bootstrap.js"));
+
+            bundles.Add(new StyleBundle("~/Content/c1").Include(
+                      "~/Content/bootstrap.min.css",
+                      "~/Content.Site.css"));
         }
     }
 }

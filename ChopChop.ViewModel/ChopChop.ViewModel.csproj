@@ -45,6 +45,7 @@
     <Compile Include="ViewModel\MasterRestaurentStyleViewModel.cs" />
     <Compile Include="ViewModel\UserModel.cs" />
     <Compile Include="ViewModel\VendorModel.cs" />
+    <Compile Include="ViewModel\VendorViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

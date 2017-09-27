@@ -48,12 +48,14 @@
     <Compile Include="IServices\IMasterRestaurentStyleService.cs" />
     <Compile Include="IServices\ISoldOutService.cs" />
     <Compile Include="IServices\IUserService.cs" />
+    <Compile Include="IServices\IVendorMediaService.cs" />
     <Compile Include="IServices\IVendorService.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MasterRestaurentStyleService.cs" />
     <Compile Include="Services\SoldOutService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\VendorMediaService.cs" />
     <Compile Include="Services\VendorService.cs" />
   </ItemGroup>
   <ItemGroup>
