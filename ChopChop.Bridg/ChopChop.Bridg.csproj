@@ -49,12 +49,18 @@
     <Compile Include="Bridg\UserBridg.cs" />
     <Compile Include="Bridg\VendorBridg.cs" />
     <Compile Include="Bridg\VendorMediaBridg.cs" />
+    <Compile Include="Bridg\VendorTimingBridg.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="IBridg\IAdminBridg.cs" />
     <Compile Include="IBridg\IMasterRestaurentStyleBridg.cs" />
     <Compile Include="IBridg\ISoldOutBridg.cs" />
     <Compile Include="IBridg\IUserBridg.cs" />
     <Compile Include="IBridg\IVendorBridg.cs" />
     <Compile Include="IBridg\IVendorMediaBridg.cs" />
+    <Compile Include="IBridg\IVendorTimingBridg.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

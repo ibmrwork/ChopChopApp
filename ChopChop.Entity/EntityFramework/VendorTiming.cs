@@ -12,13 +12,18 @@ namespace ChopChop.Entity.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class VendorMedia
+    public partial class VendorTiming
     {
-        public int ID { get; set; }
+        public int VendorTimingID { get; set; }
         public Nullable<int> VendorID { get; set; }
-        public Nullable<int> MediaType { get; set; }
-        public string OtherImagePath { get; set; }
-        public string MediaPath { get; set; }
+        public string LunchTimeWeakDay { get; set; }
+        public string LunchTimeWeakEnd { get; set; }
+        public string DinnerTimeWeakDay { get; set; }
+        public string DinnerTimeWeakEnd { get; set; }
+        public Nullable<int> LunchWeakDays { get; set; }
+        public Nullable<int> LunchWeakEnd { get; set; }
+        public Nullable<int> DinnerWeakDays { get; set; }
+        public Nullable<int> DinnerWeakEnd { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

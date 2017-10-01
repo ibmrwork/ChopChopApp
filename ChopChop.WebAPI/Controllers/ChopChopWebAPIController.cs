@@ -13,6 +13,8 @@ using ChopChop.ViewModel;
 using ChopChop.IBridg;
 using ChopChop.Bridg.IBridg;
 using ChopChop.Utility;
+using ChopChop.ViewModel.ViewModel;
+using ChopChop.Bridg.Bridg;
 
 namespace ChopChop.WebAPI.Controllers
 {

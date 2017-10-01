@@ -1,6 +1,8 @@
 ﻿using ChopChop.Entity.EntityFramework;
+using ChopChop.Entity.Repository;
 using ChopChop.Service.IServices;
 using ChopChop.ViewModel;
+using ChopChop.ViewModel.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -13,7 +15,7 @@ namespace ChopChop.Service.Services
 {
     public class VendorService: IVendorService
     {
-      
+        IGenericRepository<Vendor> repoUser = new GenericRepository<Vendor>();
         public List<ResultSearchRestaurants> SearchRestaurants(SearchResturant searchResturant)
         {
             List<ResultSearchRestaurants> lstResultSearchRestaurants = new List<ResultSearchRestaurants>();
@@ -46,6 +48,23 @@ namespace ChopChop.Service.Services
 
             }
             return lstResultSearchRestaurants;
+        }
+
+        public Vendor Insert(Vendor vendor)
+        {
+            //bool isInserted = false;
+            try
+            {
+                repoUser.Add(vendor);
+                //isInserted = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                //isInserted = false;
+            }
+
+            return vendor;
         }
     }
 }

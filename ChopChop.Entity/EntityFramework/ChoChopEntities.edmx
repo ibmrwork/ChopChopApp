@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ChopChopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ChopChopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChopChopFaq">
           <Key>
             <PropertyRef Name="FAQID" />
@@ -380,6 +380,7 @@
           <Property Name="VideoPath" Type="varchar" MaxLength="100" />
           <Property Name="Blurb" Type="varchar(max)" />
           <Property Name="360DegreePath" Type="varchar(max)" />
+          <Property Name="MainImagePath" Type="varchar" MaxLength="200" />
           <Property Name="ZipCode" Type="varchar" MaxLength="10" />
           <Property Name="OpenTime" Type="varchar" MaxLength="10" />
           <Property Name="CloseTime" Type="varchar" MaxLength="10" />
@@ -413,7 +414,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VendorID" Type="int" />
           <Property Name="MediaType" Type="int" />
-          <Property Name="MainImagePath" Type="varchar(max)" />
+          <Property Name="OtherImagePath" Type="varchar(max)" />
           <Property Name="MediaPath" Type="varchar(max)" />
           <Property Name="IsDeleted" Type="bit" />
           <Property Name="CreatedBy" Type="int" />
@@ -448,18 +449,26 @@
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
-        <Association Name="FK_DeviceLoginDetails_User">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-          <End Role="DeviceLoginDetails" Type="Self.DeviceLoginDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="DeviceLoginDetails">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="VendorTiming">
+          <Key>
+            <PropertyRef Name="VendorTimingID" />
+          </Key>
+          <Property Name="VendorTimingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorID" Type="int" />
+          <Property Name="LunchTimeWeakDay" Type="varchar" MaxLength="50" />
+          <Property Name="LunchTimeWeakEnd" Type="varchar" MaxLength="50" />
+          <Property Name="DinnerTimeWeakDay" Type="varchar" MaxLength="50" />
+          <Property Name="DinnerTimeWeakEnd" Type="varchar" MaxLength="50" />
+          <Property Name="LunchWeakDays" Type="int" />
+          <Property Name="LunchWeakEnd" Type="int" />
+          <Property Name="DinnerWeakDays" Type="int" />
+          <Property Name="DinnerWeakEnd" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <Association Name="FK_MenuItemModifier_MenuItems">
           <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="0..1" />
           <End Role="MenuItemModifier" Type="Self.MenuItemModifier" Multiplicity="*" />
@@ -700,19 +709,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Vendors">
+          <End Role="Vendor" Type="Self.Vendor" Multiplicity="0..1" />
+          <End Role="VendorTiming" Type="Self.VendorTiming" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="VendorTiming">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="sp_UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userName" Type="nvarchar" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
           <Parameter Name="deviceId" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="SSP_GetRestaurantList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Lat" Type="decimal" Mode="In" />
-          <Parameter Name="Long" Type="decimal" Mode="In" />
-          <Parameter Name="SortOptionId" Type="int" Mode="In" />
-          <Parameter Name="StartIndex" Type="int" Mode="In" />
-          <Parameter Name="EndIndex" Type="int" Mode="In" />
-          <Parameter Name="LanguageId" Type="int" Mode="In" />
-          <Parameter Name="SearchText" Type="nvarchar(max)" Mode="In" />
         </Function>
         <EntityContainer Name="ChopChopModelStoreContainer">
           <EntitySet Name="ChopChopFaq" EntityType="Self.ChopChopFaq" Schema="dbo" store:Type="Tables" />
@@ -744,10 +756,7 @@
           <EntitySet Name="VendorMedia" EntityType="Self.VendorMedia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendorMenu" EntityType="Self.VendorMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendorRating" EntityType="Self.VendorRating" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_DeviceLoginDetails_User" Association="Self.FK_DeviceLoginDetails_User">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="DeviceLoginDetails" EntitySet="DeviceLoginDetails" />
-          </AssociationSet>
+          <EntitySet Name="VendorTiming" EntityType="Self.VendorTiming" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_MenuItemModifier_MenuItems" Association="Self.FK_MenuItemModifier_MenuItems">
             <End Role="MenuItems" EntitySet="MenuItems" />
             <End Role="MenuItemModifier" EntitySet="MenuItemModifier" />
@@ -828,17 +837,16 @@
             <End Role="Vendor" EntitySet="Vendor" />
             <End Role="VendorRating" EntitySet="VendorRating" />
           </AssociationSet>
+          <AssociationSet Name="FK_Vendors" Association="Self.FK_Vendors">
+            <End Role="Vendor" EntitySet="Vendor" />
+            <End Role="VendorTiming" EntitySet="VendorTiming" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ChopChopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ChopChopEntities" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="sp_UserLogin" ReturnType="Collection(ChopChopModel.sp_UserLogin_Result)">
-            <Parameter Name="userName" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-            <Parameter Name="deviceId" Mode="In" Type="String" />
-          </FunctionImport>
           <EntitySet Name="ChopChopFaqs" EntityType="ChopChopModel.ChopChopFaq" />
           <EntitySet Name="ChopChopGenerals" EntityType="ChopChopModel.ChopChopGeneral" />
           <EntitySet Name="DeviceLoginDetails" EntityType="ChopChopModel.DeviceLoginDetail" />
@@ -865,7 +873,6 @@
           <EntitySet Name="UserSoldOutPreferences" EntityType="ChopChopModel.UserSoldOutPreference" />
           <EntitySet Name="Vendors" EntityType="ChopChopModel.Vendor" />
           <EntitySet Name="VendorCommisions" EntityType="ChopChopModel.VendorCommision" />
-          <EntitySet Name="VendorMedias" EntityType="ChopChopModel.VendorMedia" />
           <EntitySet Name="VendorMenus" EntityType="ChopChopModel.VendorMenu" />
           <EntitySet Name="VendorRatings" EntityType="ChopChopModel.VendorRating" />
           <AssociationSet Name="FK_DeviceLoginDetails_User" Association="ChopChopModel.FK_DeviceLoginDetails_User">
@@ -940,10 +947,6 @@
             <End Role="Vendor" EntitySet="Vendors" />
             <End Role="VendorCommision" EntitySet="VendorCommisions" />
           </AssociationSet>
-          <AssociationSet Name="FK_VendorMedia_Vendor" Association="ChopChopModel.FK_VendorMedia_Vendor">
-            <End Role="Vendor" EntitySet="Vendors" />
-            <End Role="VendorMedia" EntitySet="VendorMedias" />
-          </AssociationSet>
           <AssociationSet Name="FK_VendorMenu_Vendor" Association="ChopChopModel.FK_VendorMenu_Vendor">
             <End Role="Vendor" EntitySet="Vendors" />
             <End Role="VendorMenu" EntitySet="VendorMenus" />
@@ -952,26 +955,22 @@
             <End Role="Vendor" EntitySet="Vendors" />
             <End Role="VendorRating" EntitySet="VendorRatings" />
           </AssociationSet>
-          <FunctionImport Name="SSP_GetRestaurantList">
-            <Parameter Name="Lat" Mode="In" Type="Decimal" />
-            <Parameter Name="Long" Mode="In" Type="Decimal" />
-            <Parameter Name="SortOptionId" Mode="In" Type="Int32" />
-            <Parameter Name="StartIndex" Mode="In" Type="Int32" />
-            <Parameter Name="EndIndex" Mode="In" Type="Int32" />
-            <Parameter Name="LanguageId" Mode="In" Type="Int32" />
-            <Parameter Name="SearchText" Mode="In" Type="String" />
+          <EntitySet Name="VendorTimings" EntityType="ChopChopModel.VendorTiming" />
+          <AssociationSet Name="FK_Vendors" Association="ChopChopModel.FK_Vendors">
+            <End Role="Vendor" EntitySet="Vendors" />
+            <End Role="VendorTiming" EntitySet="VendorTimings" />
+          </AssociationSet>
+          <EntitySet Name="VendorMedias" EntityType="ChopChopModel.VendorMedia" />
+          <AssociationSet Name="FK_VendorMedia_Vendor" Association="ChopChopModel.FK_VendorMedia_Vendor">
+            <End Role="Vendor" EntitySet="Vendors" />
+            <End Role="VendorMedia" EntitySet="VendorMedias" />
+          </AssociationSet>
+          <FunctionImport Name="sp_UserLogin" ReturnType="Collection(ChopChopModel.sp_UserLogin_Result)">
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="deviceId" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="sp_UserLogin_Result">
-          <Property Type="Int32" Name="UserID" Nullable="false" />
-          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="ProfileImagePath" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="AccessToken" Nullable="true" MaxLength="50" />
-        </ComplexType>
         <EntityType Name="ChopChopFaq">
           <Key>
             <PropertyRef Name="FAQID" />
@@ -1392,9 +1391,11 @@
           <NavigationProperty Name="UserFavoriteVendors" Relationship="ChopChopModel.FK_UserFavoriteVendor_Vendor" FromRole="Vendor" ToRole="UserFavoriteVendor" />
           <NavigationProperty Name="User" Relationship="ChopChopModel.FK_Vendor_Users" FromRole="Vendor" ToRole="User" />
           <NavigationProperty Name="VendorCommisions" Relationship="ChopChopModel.FK_VendorCommision_Vendor" FromRole="Vendor" ToRole="VendorCommision" />
-          <NavigationProperty Name="VendorMedias" Relationship="ChopChopModel.FK_VendorMedia_Vendor" FromRole="Vendor" ToRole="VendorMedia" />
           <NavigationProperty Name="VendorMenus" Relationship="ChopChopModel.FK_VendorMenu_Vendor" FromRole="Vendor" ToRole="VendorMenu" />
           <NavigationProperty Name="VendorRatings" Relationship="ChopChopModel.FK_VendorRating_Vendor" FromRole="Vendor" ToRole="VendorRating" />
+          <Property Name="MainImagePath" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="VendorTimings" Relationship="ChopChopModel.FK_Vendors" FromRole="Vendor" ToRole="VendorTiming" />
+          <NavigationProperty Name="VendorMedias" Relationship="ChopChopModel.FK_VendorMedia_Vendor" FromRole="Vendor" ToRole="VendorMedia" />
         </EntityType>
         <EntityType Name="VendorCommision">
           <Key>
@@ -1410,22 +1411,6 @@
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Vendor" Relationship="ChopChopModel.FK_VendorCommision_Vendor" FromRole="VendorCommision" ToRole="Vendor" />
-        </EntityType>
-        <EntityType Name="VendorMedia">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VendorID" Type="Int32" />
-          <Property Name="MediaType" Type="Int32" />
-          <Property Name="MainImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="MediaPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Vendor" Relationship="ChopChopModel.FK_VendorMedia_Vendor" FromRole="VendorMedia" ToRole="Vendor" />
         </EntityType>
         <EntityType Name="VendorMenu">
           <Key>
@@ -1673,18 +1658,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VendorMedia_Vendor">
-          <End Type="ChopChopModel.Vendor" Role="Vendor" Multiplicity="0..1" />
-          <End Type="ChopChopModel.VendorMedia" Role="VendorMedia" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Vendor">
-              <PropertyRef Name="VendorID" />
-            </Principal>
-            <Dependent Role="VendorMedia">
-              <PropertyRef Name="VendorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_VendorMenu_Vendor">
           <End Type="ChopChopModel.Vendor" Role="Vendor" Multiplicity="0..1" />
           <End Type="ChopChopModel.VendorMenu" Role="VendorMenu" Multiplicity="*" />
@@ -1709,26 +1682,83 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VendorTiming">
+          <Key>
+            <PropertyRef Name="VendorTimingID" />
+          </Key>
+          <Property Name="VendorTimingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="LunchTimeWeakDay" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LunchTimeWeakEnd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DinnerTimeWeakDay" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DinnerTimeWeakEnd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LunchWeakDays" Type="Int32" />
+          <Property Name="LunchWeakEnd" Type="Int32" />
+          <Property Name="DinnerWeakDays" Type="Int32" />
+          <Property Name="DinnerWeakEnd" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Vendor" Relationship="ChopChopModel.FK_Vendors" FromRole="VendorTiming" ToRole="Vendor" />
+        </EntityType>
+        <Association Name="FK_Vendors">
+          <End Type="ChopChopModel.Vendor" Role="Vendor" Multiplicity="0..1" />
+          <End Type="ChopChopModel.VendorTiming" Role="VendorTiming" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="VendorTiming">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VendorMedia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="MediaType" Type="Int32" />
+          <Property Name="OtherImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MediaPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Vendor" Relationship="ChopChopModel.FK_VendorMedia_Vendor" FromRole="VendorMedia" ToRole="Vendor" />
+        </EntityType>
+        <Association Name="FK_VendorMedia_Vendor">
+          <End Type="ChopChopModel.Vendor" Role="Vendor" Multiplicity="0..1" />
+          <End Type="ChopChopModel.VendorMedia" Role="VendorMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="VendorMedia">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_UserLogin_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ProfileImagePath" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AccessToken" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ChopChopModelStoreContainer" CdmEntityContainer="ChopChopEntities">
-          <FunctionImportMapping FunctionImportName="sp_UserLogin" FunctionName="ChopChopModel.Store.sp_UserLogin">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ChopChopModel.sp_UserLogin_Result">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
-                <ScalarProperty Name="ProfileImagePath" ColumnName="ProfileImagePath" />
-                <ScalarProperty Name="AccessToken" ColumnName="AccessToken" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="ChopChopFaqs">
             <EntityTypeMapping TypeName="ChopChopModel.ChopChopFaq">
               <MappingFragment StoreEntitySet="ChopChopFaq">
@@ -2113,6 +2143,7 @@
           <EntitySetMapping Name="Vendors">
             <EntityTypeMapping TypeName="ChopChopModel.Vendor">
               <MappingFragment StoreEntitySet="Vendor">
+                <ScalarProperty Name="MainImagePath" ColumnName="MainImagePath" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -2156,22 +2187,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VendorMedias">
-            <EntityTypeMapping TypeName="ChopChopModel.VendorMedia">
-              <MappingFragment StoreEntitySet="VendorMedia">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="MediaPath" ColumnName="MediaPath" />
-                <ScalarProperty Name="MainImagePath" ColumnName="MainImagePath" />
-                <ScalarProperty Name="MediaType" ColumnName="MediaType" />
-                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="VendorMenus">
             <EntityTypeMapping TypeName="ChopChopModel.VendorMenu">
               <MappingFragment StoreEntitySet="VendorMenu">
@@ -2201,7 +2216,57 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SSP_GetRestaurantList" FunctionName="ChopChopModel.Store.SSP_GetRestaurantList" />
+          <EntitySetMapping Name="VendorTimings">
+            <EntityTypeMapping TypeName="ChopChopModel.VendorTiming">
+              <MappingFragment StoreEntitySet="VendorTiming">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DinnerWeakEnd" ColumnName="DinnerWeakEnd" />
+                <ScalarProperty Name="DinnerWeakDays" ColumnName="DinnerWeakDays" />
+                <ScalarProperty Name="LunchWeakEnd" ColumnName="LunchWeakEnd" />
+                <ScalarProperty Name="LunchWeakDays" ColumnName="LunchWeakDays" />
+                <ScalarProperty Name="DinnerTimeWeakEnd" ColumnName="DinnerTimeWeakEnd" />
+                <ScalarProperty Name="DinnerTimeWeakDay" ColumnName="DinnerTimeWeakDay" />
+                <ScalarProperty Name="LunchTimeWeakEnd" ColumnName="LunchTimeWeakEnd" />
+                <ScalarProperty Name="LunchTimeWeakDay" ColumnName="LunchTimeWeakDay" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="VendorTimingID" ColumnName="VendorTimingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VendorMedias">
+            <EntityTypeMapping TypeName="ChopChopModel.VendorMedia">
+              <MappingFragment StoreEntitySet="VendorMedia">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="MediaPath" ColumnName="MediaPath" />
+                <ScalarProperty Name="OtherImagePath" ColumnName="OtherImagePath" />
+                <ScalarProperty Name="MediaType" ColumnName="MediaType" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_UserLogin" FunctionName="ChopChopModel.Store.sp_UserLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ChopChopModel.sp_UserLogin_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ProfileImagePath" ColumnName="ProfileImagePath" />
+                <ScalarProperty Name="AccessToken" ColumnName="AccessToken" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace ChopChop.Bridg.IBridg
 {
-   public interface IVendorBridg
+   public interface IVendorTimingBridg
     {
-        Vendor InsertVendor(VendorViewModel vendorModel);
-        List<ResultSearchRestaurants> SearchRestaurants(SearchResturant searchResturant);
+        int Insert(VendorViewModel vendorTimingModel); 
     }
 }

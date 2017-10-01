@@ -30,8 +30,8 @@ namespace ChopChop.ViewModel.ViewModel
         public Nullable<int> LunchWeakEnd { get; set; }
         public Nullable<int> DinnerWeakDays { get; set; }
         public Nullable<int> DinnerWeakEnd { get; set; }
-       
-     
+        public string OtherImagePath { get; set; }
+
         public int ID { get; set; }
         public Nullable<int> MediaType { get; set; }
         public List<Images> lstImages { get; set; }

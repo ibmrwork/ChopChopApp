@@ -188,6 +188,9 @@
     <Compile Include="EntityFramework\VendorRating.cs">
       <DependentUpon>ChoChopEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\VendorTiming.cs">
+      <DependentUpon>ChoChopEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs">
       <SubType>Code</SubType>

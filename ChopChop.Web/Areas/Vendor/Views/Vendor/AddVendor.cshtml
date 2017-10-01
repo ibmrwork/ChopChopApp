@@ -1,0 +1,280 @@
+﻿@model ChopChop.ViewModel.ViewModel.VendorViewModel
+@{
+    ViewBag.Title = "AddVendor";
+}
+@{
+    Layout = null;
+}
+@Styles.Render("~/Content/c1")
+<link href="~/Content/styles/style.css" rel="stylesheet" />
+<link href="~/Content/ApplicationCss/image-button.css" rel="stylesheet" />
+@using (Html.BeginForm("SaveVendor", "Vendor", new { area = "Vendor" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="wrapper">
+        <header>
+            <a href="#" title="CHOP CHOP" class="logo"><img src="~/Content/images/logo.png" alt="CHOP CHOP"></a>
+        </header>
+        <div class="jumbotron" style="margin-top:50px;height:500px;">
+            <nav class="navbar-inverse" style="margin-top:-48px;height:60px;">
+                <div class="col-sm-3 col-md-3 pull-left">
+                    <h4 class="bottom" style="color:red;font-size:15px;">Restaurant Management</h4>
+                </div>
+            </nav>
+            <div class="container" style="margin-top:20px;">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label col-sm-1">Name</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.VendorName, new { @class = "form-control", @id = "txtVendorName" })
+                                        @Html.ValidationMessageFor(model => model.VendorName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label col-sm-1">Styles</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="col-md-10">
+                                        @*@Html.TextBoxFor(model => model.VendorStyle, new { @class = "form-control" })*@
+                                        @Html.DropDownListFor(model => model.VendorStyle, new SelectList(ViewBag.Styles, "TypeID", "Name"),
+                        "Choose Style",
+                        new { @class = "form-control", @id = "ddlStyles" })
+                                        @Html.ValidationMessageFor(model => model.VendorStyle, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label col-md-1">Phone</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @id = "txtPhone" })
+                                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label col-md-1">Address</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.AddressLine1, new { @class = "form-control", @id = "txtAddress" })
+                                        @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            Opening Hours:
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label col-md-1">Lunch</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="col-md-10">
+                                        <select id="ddlLunchTimeWeakDay" name="LunchTimeWeakDay" class="form-control">
+                                            <option value="0" selected>Select Time </option>
+                                            <option value="10AMTo3PM">10 AMTo 3PM</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.LunchWeakDays, ViewBag.EnumListWeakDays as SelectList, "Day", new { @class = "form-control", @id = "ddlLunchWeakDay" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="col-md-10">
+                                        <select class="form-control" name="LunchTimeWeakEnd" id="ddlLunchTimeWeakEnd">
+                                            <option value="0" selected>Select Time </option>
+                                            <option value="9AMTo4PM">9AM To 4PM</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.LunchWeakEnd, ViewBag.EnumListWeakEnd as SelectList, "Day", new { @class = "form-control", @id = "ddlLunchWeakEnd" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="control-label col-md-1">Dinner</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="col-md-10">
+                                        <select class="form-control" name="DinnerTimeWeakDay" id="ddlDinnerTimeWeakDay">
+                                            <option value="0" selected>Select Time </option>
+                                            <option value="5PMTo10PM">5PM To 10PM</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.DinnerWeakDays, ViewBag.EnumListWeakDays as SelectList, "Day", new { @class = "form-control", @id = "ddlDinnerWeakDay" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="col-md-10">
+                                        <select class="form-control" name="DinnerTimeWeakEnd" id="ddlDinnerTimeWeakEnd">
+                                            <option value="0" selected>Select Time </option>
+                                            <option value="5PMTo11PM">5PM To 11PM</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.DinnerWeakEnd, ViewBag.EnumListWeakEnd as SelectList, "Day", new { @class = "form-control", @id = "ddlDinnerWeakEnd" })
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <img id="Main" src="data:image/png;base64,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" style="width:200px;height:150px" />
+                                    <div class="row">
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-6">
+                                            <label class="btn btn-primary btn-file">
+                                                Browse <input type="file" name="pictureMain" id="imgMain" style="display: none;">
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-5"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <img id="Other" src="data:image/png;base64,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" style="width:200px;height:150px" />
+                                    <div class="row">
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-6">
+                                            <label class="btn btn-primary btn-file">
+                                                Browse <input type="file"  name="PictureOther" id="imgOther" style="display: none;">
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-5"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <img id="Logo" src="data:image/png;base64,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" style="width:200px;height:150px" />
+                                    <div class="row">
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-6">
+                                            <label class="btn btn-primary btn-file">
+                                                Browse <input type="file" name="PictureLogo" id="imgLogo" style="display: none;">
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-5"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-1">
+                                    <label class="control-label col-md-1">360</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.C360DegreePath, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.C360DegreePath, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-1">
+                                    <label class="control-label col-md-1">Video</label>
+                                </div>
+                                <div class="col-md-3">
+
+                                    <div class="col-md-10">
+                                        <button class="btn btn-primary" type="button" style="width:140px;">Upload Video</button>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="control-label col-md-1">Or</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(model => model.MediaPath, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.MediaPath, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-1">
+                                    <label class="control-label col-md-1">Blurb</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.Blurb, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Blurb, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button id="btnSaveVendor" type="submit" class="btn btn-primary">Done</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-1">
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+}
+
+
+
+@Scripts.Render("~/bundles/b1")
+<script src="~/Scripts/Vendor/image-upload.js"></script>
+@*<script src="~/Scripts/Vendor/add-vendor.js"></script>*@
+
+

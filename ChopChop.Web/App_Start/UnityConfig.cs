@@ -10,6 +10,7 @@ using ChopChop.Service;
 using ChopChop.IBridg;
 using ChopChop.Bridg;
 using ChopChop.Bridg.IBridg;
+using ChopChop.Bridg.Bridg;
 namespace ChopChop.Web.App_Start
 {
     public class UnityConfig

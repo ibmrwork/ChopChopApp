@@ -8,6 +8,20 @@ namespace ChopChop.Utility
 {
     public class Enums
     {
+        public enum WeakDays : int {
+            Monday=1,
+            Tuesday=2,
+            Wednesday=3,
+            Thrusday=4,
+            Friday=5,
+           
+        }
+        public enum WeakEnd : int
+        {
+            Saturday = 6,
+            Sunday = 7
+        }
+       
         public enum Frequency : int
         {
             Monthly = 1,
@@ -21,8 +35,7 @@ namespace ChopChop.Utility
         {
             Admin = 1,
             Vendor = 2,
-            SubVendor = 3,
-            Customer=4
+            Customer = 3
         }
 
         public enum JobStatus : int

@@ -12,7 +12,7 @@ namespace ChopChop.Entity.EntityFramework
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
+    using System.Data.Objects;
     using System.Data.Objects.DataClasses;
     using System.Linq;
     
@@ -54,58 +54,27 @@ namespace ChopChop.Entity.EntityFramework
         public DbSet<UserSoldOutPreference> UserSoldOutPreferences { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<VendorCommision> VendorCommisions { get; set; }
-        public DbSet<VendorMedia> VendorMedias { get; set; }
         public DbSet<VendorMenu> VendorMenus { get; set; }
         public DbSet<VendorRating> VendorRatings { get; set; }
-    
-        public virtual ObjectResult<sp_UserLogin_Result> sp_UserLogin(string userName, string password, string deviceId)
+        public DbSet<VendorTiming> VendorTimings { get; set; }
+        public DbSet<VendorMedia> VendorMedias { get; set; }
+
+        public virtual System.Data.Entity.Core.Objects.ObjectResult<sp_UserLogin_Result> sp_UserLogin(string userName, string password, string deviceId)
         {
+            //var parameters = new System.Data.Entity.Core.Objects.ObjectParameter[] {new System.Data.Entity.Core.Objects.ObjectParameter("userName", userName)};
             var userNameParameter = userName != null ?
-                new ObjectParameter("userName", userName) :
-                new ObjectParameter("userName", typeof(string));
+                new System.Data.Entity.Core.Objects.ObjectParameter("userName", userName) :
+                new System.Data.Entity.Core.Objects.ObjectParameter("userName", typeof(string));
     
             var passwordParameter = password != null ?
-                new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", typeof(string));
+                new System.Data.Entity.Core.Objects.ObjectParameter("Password", password) :
+                new System.Data.Entity.Core.Objects.ObjectParameter("Password", typeof(string));
     
             var deviceIdParameter = deviceId != null ?
-                new ObjectParameter("deviceId", deviceId) :
-                new ObjectParameter("deviceId", typeof(string));
-    
+                new System.Data.Entity.Core.Objects.ObjectParameter("deviceId", deviceId) :
+                new System.Data.Entity.Core.Objects.ObjectParameter("deviceId", typeof(string));
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_UserLogin_Result>("sp_UserLogin", userNameParameter, passwordParameter, deviceIdParameter);
-        }
-    
-        public virtual int SSP_GetRestaurantList(Nullable<decimal> lat, Nullable<decimal> @long, Nullable<int> sortOptionId, Nullable<int> startIndex, Nullable<int> endIndex, Nullable<int> languageId, string searchText)
-        {
-            var latParameter = lat.HasValue ?
-                new ObjectParameter("Lat", lat) :
-                new ObjectParameter("Lat", typeof(decimal));
-    
-            var longParameter = @long.HasValue ?
-                new ObjectParameter("Long", @long) :
-                new ObjectParameter("Long", typeof(decimal));
-    
-            var sortOptionIdParameter = sortOptionId.HasValue ?
-                new ObjectParameter("SortOptionId", sortOptionId) :
-                new ObjectParameter("SortOptionId", typeof(int));
-    
-            var startIndexParameter = startIndex.HasValue ?
-                new ObjectParameter("StartIndex", startIndex) :
-                new ObjectParameter("StartIndex", typeof(int));
-    
-            var endIndexParameter = endIndex.HasValue ?
-                new ObjectParameter("EndIndex", endIndex) :
-                new ObjectParameter("EndIndex", typeof(int));
-    
-            var languageIdParameter = languageId.HasValue ?
-                new ObjectParameter("LanguageId", languageId) :
-                new ObjectParameter("LanguageId", typeof(int));
-    
-            var searchTextParameter = searchText != null ?
-                new ObjectParameter("SearchText", searchText) :
-                new ObjectParameter("SearchText", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SSP_GetRestaurantList", latParameter, longParameter, sortOptionIdParameter, startIndexParameter, endIndexParameter, languageIdParameter, searchTextParameter);
         }
     }
 }

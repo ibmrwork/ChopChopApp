@@ -19,9 +19,10 @@ namespace ChopChop.Entity.EntityFramework
             this.Orders = new HashSet<Order>();
             this.UserFavoriteVendors = new HashSet<UserFavoriteVendor>();
             this.VendorCommisions = new HashSet<VendorCommision>();
-            this.VendorMedias = new HashSet<VendorMedia>();
             this.VendorMenus = new HashSet<VendorMenu>();
             this.VendorRatings = new HashSet<VendorRating>();
+            this.VendorTimings = new HashSet<VendorTiming>();
+            this.VendorMedias = new HashSet<VendorMedia>();
         }
     
         public int VendorID { get; set; }
@@ -49,13 +50,15 @@ namespace ChopChop.Entity.EntityFramework
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public string MainImagePath { get; set; }
     
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<UserFavoriteVendor> UserFavoriteVendors { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<VendorCommision> VendorCommisions { get; set; }
-        public virtual ICollection<VendorMedia> VendorMedias { get; set; }
         public virtual ICollection<VendorMenu> VendorMenus { get; set; }
         public virtual ICollection<VendorRating> VendorRatings { get; set; }
+        public virtual ICollection<VendorTiming> VendorTimings { get; set; }
+        public virtual ICollection<VendorMedia> VendorMedias { get; set; }
     }
 }
